@@ -10,6 +10,7 @@ import one.digitalinnovation.beerstock.mapper.BeerMapper;
 import one.digitalinnovation.beerstock.repository.BeerRepository;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -80,5 +81,27 @@ public class BeerServiceTest {
 
         assertThrows(BeerAlreadyRegisteredException.class, () -> beerService.createBeer(expectedBeerDTO));
     }
+
+    @Test
+    void whenValidBeerNameIsGivenThenReturnABeer() throws BeerNotFoundException {
+        BeerDTO expectedFoundBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
+        Beer expectedFoundBeer = beerMapper.toModel(expectedFoundBeerDTO);
+
+        when(beerRepository.findByName(expectedFoundBeer.getName())).thenReturn(Optional.of(expectedFoundBeer));
+
+        BeerDTO foundBeerDTO = beerService.findByName(expectedFoundBeerDTO.getName());
+
+        assertThat(foundBeerDTO, Matchers.is(equalTo(expectedFoundBeerDTO)));
+    }
+
+    @Test
+    void whenNotRegisteredBeerNameIsGiveThenThrowAnException(){
+        BeerDTO exceptionFoundBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
+
+        when(beerRepository.findByName(exceptionFoundBeerDTO.getName())).thenReturn(Optional.empty());
+
+        assertThrows(BeerNotFoundException.class, () -> beerService.findByName(exceptionFoundBeerDTO.getName()));
+    }
+
 
 }
