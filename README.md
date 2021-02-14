@@ -1,4 +1,4 @@
-<h2>Digital Innovation: Expert class - Desenvolvimento de testes unitários para validar uma API REST de gerenciamento de estoques de cerveja.</h2>
+<h2>Desenvolvimento de testes unitários para validar uma API REST de gerenciamento de estoques de cerveja.</h2>
 
 Desafio Digital Innovation One - bootcamp:  Foi estudado testes unitarios em uma API REST para gerenciamento de estoques de cerveja.Foi desenvolvidos testes unitários para validar o sistema de gerenciamento de estoques de cerveja, e também foi usado JUnit e Mockito. E desenvolvido funcionalidades da API através da prática do TDD.
 
